@@ -6,6 +6,11 @@ const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
 
+console.log(
+  "Initializing API client with base URL:",
+  process.env.NEXT_PUBLIC_API_BASE_URL
+);
+
 // This is an Axios interceptor. It's a piece of code that runs
 // BEFORE every single API request is sent.
 apiClient.interceptors.request.use(

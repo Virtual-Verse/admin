@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css"; // Imports your global Tailwind CSS styles
+import QueryProvider from "@/components/providers/query-provider";
 
 // This optimizes the font loading
 const inter = Inter({ subsets: ["latin"] });
@@ -21,8 +22,7 @@ export default function RootLayout({
     // like `shadcn/ui` that might add attributes to the html tag for theming (light/dark mode).
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {/* The `children` prop here will be the content of your pages */}
-        {children}
+      <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
