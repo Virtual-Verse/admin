@@ -1,6 +1,7 @@
 // src/store/auth.store.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import Cookies from 'js-cookie';
 
 type AuthState = {
   token: string | null;
@@ -17,7 +18,10 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       user: null,
       setAuth: (token, user) => set({ token, user }),
-      logout: () => set({ token: null, user: null }),
+      logout: () => {
+        set({ token: null, user:null });
+        Cookies.remove('auth-token');
+      }
     }),
     {
       name: 'auth-storage', // The key to use for storing the data in localStorage
