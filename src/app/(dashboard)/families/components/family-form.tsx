@@ -3,12 +3,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { familyFormSchema, FamilyFormValues } from "@/app/(dashboard)/families/data/schema";
 import { Family } from "../data/types";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Eye, EyeOff } from "lucide-react";
 
 interface FamilyFormProps {
   onSubmit: (values: FamilyFormValues) => void;
@@ -17,6 +18,7 @@ interface FamilyFormProps {
 }
 
 export function FamilyForm({ onSubmit, isSubmitting, initialData }: FamilyFormProps) {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<FamilyFormValues>({
     resolver: zodResolver(familyFormSchema),
     defaultValues: initialData || { familyName: "", password: "" },
@@ -58,12 +60,34 @@ export function FamilyForm({ onSubmit, isSubmitting, initialData }: FamilyFormPr
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder={initialData ? "Leave blank to keep unchanged" : "********"}
-                  {...field}
-                  autoComplete="new-password"
-                />
+                {/* --- 4. Wrap Input in a relative div to position the icon --- */}
+                <div className="relative">
+                  <Input
+                    // Toggle type based on state
+                    type={showPassword ? "text" : "password"}
+                    placeholder={initialData ? "Leave blank to keep unchanged" : "********"}
+                    {...field}
+                    autoComplete="new-password"
+                    className="pr-10" // Add padding to the right so text doesn't go under the icon
+                  />
+                  <Button
+                    type="button" // IMPORTANT: Prevents the form from submitting when clicking the eye
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <span className="sr-only">
+                      {showPassword ? "Hide password" : "Show password"}
+                    </span>
+                  </Button>
+                </div>
+                {/* --- End Wrapper --- */}
               </FormControl>
               <FormMessage />
             </FormItem>
