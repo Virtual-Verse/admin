@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'; // To highlight active link
-import { HomeIcon, BookTextIcon, UsersIcon, GraduationCapIcon, TrophyIcon, ClipboardListIcon, BanknoteIcon, Link2Icon, TrendingUp } from 'lucide-react';
+import { HomeIcon, BookTextIcon, UsersIcon, GraduationCapIcon, TrophyIcon, ClipboardListIcon, BanknoteIcon, Link2Icon, TrendingUp, Medal } from 'lucide-react';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -17,6 +17,7 @@ export function Sidebar() {
     { name: "Badges", href: "/badges", icon: TrophyIcon },
     { name: "Progress", href: "/student-progress", icon: TrendingUp },
     { name: "Assignments", href: "/assignments", icon: Link2Icon },
+    { name: "Achievements", href: "/achievements", icon: Medal },
     { name: "Fees", href: "/fee-payments", icon: BanknoteIcon }, // Placeholder for future module
   ];
 
