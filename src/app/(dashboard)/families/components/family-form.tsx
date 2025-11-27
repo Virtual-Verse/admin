@@ -93,7 +93,7 @@ export function FamilyForm({ onSubmit, isSubmitting, initialData }: FamilyFormPr
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting} className="w-full">
+        <Button type="submit" disabled={isSubmitting} className="w-full bg-[#516e56] hover:bg-[#516e56]/90">
           {isSubmitting ? submittingTitle : formTitle}
         </Button>
       </form>

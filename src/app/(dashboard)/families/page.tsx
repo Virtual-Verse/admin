@@ -83,7 +83,7 @@ export default function FamiliesPage() {
           <h1 className="text-3xl font-bold">Families</h1>
           <p className="text-muted-foreground">Manage all the families in the system.</p>
         </div>
-        <Button onClick={() => handleOpenModal()}>Create Family</Button>
+        <Button onClick={() => handleOpenModal()} className="bg-[#516e56] hover:bg-[#516e56]/90">Create Family</Button>
       </div>
 
       <FamilyDataTable columns={columns} data={families || []} />

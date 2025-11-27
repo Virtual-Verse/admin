@@ -29,7 +29,7 @@ export function Sidebar() {
           key={item.name}
           href={item.href}
           className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary 
-            ${pathname === item.href ? 'bg-primary text-primary-foreground hover:text-white' : 'text-muted-foreground'}`}
+            ${pathname === item.href ? 'bg-[#516e56] text-primary-foreground hover:text-white' : 'text-muted-foreground'}`}
         >
           <item.icon className="h-4 w-4" />
           {item.name}
