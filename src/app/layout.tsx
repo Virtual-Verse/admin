@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css"; // Imports your global Tailwind CSS styles
 import QueryProvider from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 // This optimizes the font loading
 const nunito = Nunito({
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${nunito.variable} ${nunito.className}`}>
         <QueryProvider>{children}</QueryProvider>
+        <Toaster richColors />
       </body>
     </html>
   );

@@ -11,6 +11,8 @@ import { FamilyDataTable } from "@/app/(dashboard)/families/components/family-da
 import { FamilyForm } from "@/app/(dashboard)/families/components/family-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 export default function FamiliesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,8 +31,9 @@ export default function FamiliesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["families"] });
       setIsModalOpen(false);
+      toast.success("Family created successfully!");
     },
-    onError: (e) => alert(e.message),
+    onError: (e) => toast.error(e.message),
   });
 
   const updateMutation = useMutation({
@@ -38,16 +41,18 @@ export default function FamiliesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["families"] });
       setIsModalOpen(false);
+      toast.success("Family updated successfully!");
     },
-    onError: (e) => alert(e.message),
+    onError: (e) => toast.error(e.message),
   });
 
   const deleteMutation = useMutation({
     mutationFn: deleteFamily,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["families"] });
+      toast.success("Family deleted successfully!");
     },
-    onError: (e) => alert(e.message),
+    onError: (e) => toast.error(e.message),
   });
 
   // --- EVENT HANDLERS ---
@@ -77,13 +82,22 @@ export default function FamiliesPage() {
   if (error) return <p>An error occurred: {error.message}</p>;
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold">Families</h1>
           <p className="text-muted-foreground">Manage all the families in the system.</p>
         </div>
-        <Button onClick={() => handleOpenModal()} className="bg-[#516e56] hover:bg-[#516e56]/90">Create Family</Button>
+        <Button
+          onClick={() => handleOpenModal()}
+          // Custom background color added here 👇
+          className="bg-[#516e56] hover:bg-[#516e56]/90 text-white group transition-all duration-300 ease-in-out"
+        >
+          Create Family
+          <ArrowRight
+            className="ml-0 w-0 opacity-0 transition-all duration-300 ease-in-out group-hover:ml-2 group-hover:w-4 group-hover:opacity-100"
+          />
+        </Button>
       </div>
 
       <FamilyDataTable columns={columns} data={families || []} />

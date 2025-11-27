@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface FamilyFormProps {
   onSubmit: (values: FamilyFormValues) => void;
@@ -93,8 +94,19 @@ export function FamilyForm({ onSubmit, isSubmitting, initialData }: FamilyFormPr
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting} className="w-full bg-[#516e56] hover:bg-[#516e56]/90">
-          {isSubmitting ? submittingTitle : formTitle}
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-[#516e56] hover:bg-[#516e56]/90 text-white"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            initialData ? "Update Family" : "Create Family"
+          )}
         </Button>
       </form>
     </Form>
