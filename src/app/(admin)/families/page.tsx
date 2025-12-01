@@ -2,13 +2,13 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Family } from "@/app/(dashboard)/families/data/types";
-import { FamilyFormValues } from "@/app/(dashboard)/families/data/schema";
-import { getFamilies } from "@/app/(dashboard)/families/data/quries";
+import { Family } from "@/app/(admin)/families/data/types";
+import { FamilyFormValues } from "@/app/(admin)/families/data/schema";
+import { getFamilies } from "@/app/(admin)/families/data/quries";
 import { createFamily, updateFamily, deleteFamily } from "./data/actions";
-import { familyColumns } from "@/app/(dashboard)/families/components/family-columns";
-import { FamilyDataTable } from "@/app/(dashboard)/families/components/family-data-table";
-import { FamilyForm } from "@/app/(dashboard)/families/components/family-form";
+import { familyColumns } from "@/app/(admin)/families/components/family-columns";
+import { FamilyDataTable } from "@/app/(admin)/families/components/family-data-table";
+import { FamilyForm } from "@/app/(admin)/families/components/family-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ArrowRight } from "lucide-react";

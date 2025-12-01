@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Student } from "../data/types";
-import { StudentActionsMenu } from "@/app/(dashboard)/students/components/student-actions-menu";
+import { StudentActionsMenu } from "@/app/(admin)/students/components/student-actions-menu";
 import { Badge } from "@/components/ui/badge";
 // We'll use a badge for the status
 

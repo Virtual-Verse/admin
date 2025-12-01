@@ -5,9 +5,9 @@ import { UsersIcon, GraduationCapIcon, BookTextIcon, TrophyIcon } from "lucide-r
 
 // Imports from your existing modules
 // Note: Adjust these import paths if your folder structure is slightly different
-import { getFamilies } from "@/app/(dashboard)/families/data/quries";
-import { getStudents } from "@/app/(dashboard)/students/data/queries";
-import { getResources } from "@/app/(dashboard)/library-resources/data/queries";
+import { getFamilies } from "@/app/(admin)/families/data/quries";
+import { getStudents } from "@/app/(admin)/students/data/queries";
+import { getResources } from "@/app/(admin)/library-resources/data/queries";
 
 // Components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

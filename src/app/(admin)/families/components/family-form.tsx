@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { familyFormSchema, FamilyFormValues } from "@/app/(dashboard)/families/data/schema";
+import { familyFormSchema, FamilyFormValues } from "@/app/(admin)/families/data/schema";
 import { Family } from "../data/types";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
