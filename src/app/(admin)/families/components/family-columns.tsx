@@ -1,6 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Copy } from "lucide-react";
+import { toast } from "sonner";
 import { Family } from "../data/types";
 import { FamilyActionsMenu } from "./family-actions-menu";
 
@@ -21,6 +23,23 @@ export const familyColumns = ({ onEdit, onDelete }: FamilyColumnsProps): ColumnD
   {
     accessorKey: "familyLink",
     header: "Login Link ID",
+    cell: ({ row }) => {
+      const link = row.getValue("familyLink") as string;
+      return (
+        <div
+          className="flex cursor-pointer items-center gap-2 hover:text-primary"
+          onClick={() => {
+            const fullUrl = `${window.location.origin}/${link}`;
+            navigator.clipboard.writeText(fullUrl);
+            toast.success("Login Link copied to clipboard!");
+          }}
+          title="Click to copy"
+        >
+          {link}
+          <Copy className="h-3 w-3 text-muted-foreground" />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "createdAt",

@@ -1,37 +1,55 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  // 1. Get the token from the user's cookies
   const token = request.cookies.get('auth-token')?.value;
-
-  // 2. Get the requested URL's pathname
   const { pathname } = request.nextUrl;
 
-  // 3. Define public and protected paths
-  const isPublicPath = pathname === '/login';
+  // 1. Define the list of routes that require ADMIN Authentication
+  // These are the folders inside your (admin) folder
+  const adminRoutes = [
+    '/', // The main dashboard
+    '/families',
+    '/students',
+    '/library-resources',
+    '/quizzes',
+    '/assignments',
+    '/badges',
+    '/fee-payments',
+    '/student-progress',
+    '/achievements',
+  ];
 
-  // 4. Redirect logic
-  // If the user is trying to access a public path but they ARE logged in,
-  // redirect them to the dashboard home.
-  if (isPublicPath && token) {
+  // Helper to check if the current path is an Admin route
+  // We check if it matches exactly OR starts with it (e.g. /quizzes/1)
+  const isAdminRoute = adminRoutes.some((route) => {
+    if (route === '/') return pathname === '/'; // Exact match for root
+    return pathname.startsWith(route);
+  });
+
+  // 2. Define Public Auth Routes (Admin Login)
+  const isAuthRoute = pathname === '/login';
+
+  // --- LOGIC ---
+
+  // Scenario A: User is already logged in as Admin, but tries to go to Login page
+  if (isAuthRoute && token) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  // If the user is trying to access a protected path but they are NOT logged in,
-  // redirect them to the login page.
-  if (!isPublicPath && !token) {
+  // Scenario B: User tries to access an ADMIN route without a token
+  if (isAdminRoute && !token) {
+    // Redirect to admin login
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // 5. If none of the above, let them proceed
+  // Scenario C: Everything else (Family Links, Student Portal, etc.)
+  // We let them pass! The specific pages (like Student Dashboard) will handle 
+  // their own protection (e.g. checking localStorage) or just be public.
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-  // This matcher ensures the middleware runs on all paths EXCEPT for
-  // static assets like images or Next.js-specific files.
+  // Match everything except static files/images
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
